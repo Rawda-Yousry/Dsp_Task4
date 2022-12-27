@@ -1,0 +1,17 @@
+
+.container{
+    display: flex;
+}
+
+.column1{
+    flex: 50%;
+}
+
+.column2{
+    flex: 50%;
+}
+
+.img{
+    width: 80%;
+    height: 50%;
+}

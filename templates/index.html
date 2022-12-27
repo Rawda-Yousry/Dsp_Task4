@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+    <link rel="stylesheet" href="static/style.css">
+    <!-- <link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+     crossorigin="anonymous">  -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="column1">
+            <form method="post" action="/upload_image" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+                    </p>
+                </dl>
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-info">
+                </p>
+                {% if filename %}
+
+            <img src ="{{ url_for('display_image', filename=filename) }}" class="img">
+
+            {% endif %}
+            </form>
+            <form method="post" action="/upload_image" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+                    </p>
+                </dl>
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-info">
+                </p>
+                {% if filename %}
+
+            <img src ="{{ url_for('display_image', filename=filename) }}" class="img">
+
+            {% endif %}
+            </form>
+            <!-- <form action="/processing" method="post">
+                <input type="radio" name="choise1" value="Phase1" id="phase1">
+                <label for="phase1">Phase </label>
+                <input type="radio" name="choise1" value="Magnitude1" id="mag1">
+                <label for="Magnitude1">Magnitude </label>
+            </form> -->
+             <!-- <img src="static/images/img1.png" class="img">
+            <img src="static/images/choise1.png" class="img">
+            <img src="static/images/mag1.png" class="img">
+            <img src="static/images/phase1.png" class="img"> -->
+        </div>
+        <div class="column2">
+            <img src="static/images/imageOut.png">
+            <!-- <form action="/processing" method="post">
+                <input type="radio" name="choise2" value="Phase2" id="phas2">
+                <label for="phase2">Phase </label>
+                <input type="radio" name="choise2" value="Magnitude2" id="mag2">
+                <label for="Magnitude2">Magnitude </label>
+            </form> -->
+            <!-- <img src="static/images/img1.png" class="img">
+            <img src="static/images/choise2.png" class="img">
+            <img src="static/images/mag2.png" class="img">
+            <img src="static/images/phase1.png" class="img"> -->
+        </div>
+
+    </div> 
+
+        
+
+</body>
+</html>

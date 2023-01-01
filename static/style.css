@@ -1,17 +1,101 @@
+body{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* color: tomato; */
+    /* background-color: cadetblue; */
+    /* overflow: hidden; */
+}
+
+label{
+    cursor: pointer;
+}
 
 .container{
     display: flex;
+    text-align: center;
+    /* border-style: solid;
+    border-color: aliceblue; */
 }
 
 .column1{
-    flex: 50%;
+    flex: 70%;
+    text-align: center;
 }
 
 .column2{
-    flex: 50%;
+    flex: 30%;
+    text-align: center
 }
 
-.img{
-    width: 80%;
+.row1{
     height: 50%;
+    display: flex;
+}
+
+.row2{
+    height: 50%;
+    display: flex;
+}
+
+.column3{
+    flex: 20%;
+    text-align: center;
+}
+
+.column4{
+    flex: 40%;
+    text-align: center;
+    /* padding-top: 1.5rem; */
+}
+
+.column5{
+    flex: 40%;
+    text-align: center;
+    /* padding-top: 1.5rem; */
+}
+
+.upload{
+    text-align: center;
+    padding-top: 6rem;
+}
+
+.radio{
+    text-align: left;
+    padding-left: 2rem;
+}
+
+/* .input_img{
+
+} */
+
+/* .img{
+    width: 60%;
+    height: 80%;
+} */
+img {
+    display: block;
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+}
+
+.img1{
+    padding-top: 1rem;
+    width: 60%;
+    height: 80%;
+}
+
+
+input[type="file"]{
+    display: none;
+}
+
+.canvas{
+    width: 60%;
+    height: 80%;
+    padding-top: 1rem;
+}
+
+.head{
+    padding-top: 6rem;
+    font-weight: bold;
+    font-size: large;
 }

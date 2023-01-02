@@ -44,13 +44,13 @@ label{
 .column4{
     flex: 40%;
     text-align: center;
-    /* padding-top: 1.5rem; */
+    padding-top: 1.5rem;
 }
 
 .column5{
     flex: 40%;
     text-align: center;
-    /* padding-top: 1.5rem; */
+    padding-top: 1.5rem;
 }
 
 .upload{
@@ -63,14 +63,22 @@ label{
     padding-left: 2rem;
 }
 
-/* .input_img{
+.input_img{
+    width: 490px;
+    height: 369px;
+}
 
+/* .img_out{
+    width: 490px;
+    height: 369px;
 } */
 
-/* .img{
-    width: 60%;
-    height: 80%;
-} */
+.magphase_img{
+    /* padding-top: 1rem; */
+    width: 490px;
+    height: 369px;
+}
+
 img {
     display: block;
     /* This rule is very important, please don't ignore this */
@@ -78,9 +86,8 @@ img {
 }
 
 .img1{
-    padding-top: 1rem;
-    width: 60%;
-    height: 80%;
+    display: block;
+    max-width: 100%;
 }
 
 

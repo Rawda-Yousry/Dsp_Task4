@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, s
 from werkzeug.utils import secure_filename
 import os
 
+
+
 app = Flask(__name__)
 
 app.secret_key = 'secret key'
@@ -17,6 +19,8 @@ file_path2 = 'images\\img2.png'
 
 canvas1_points = [0, 0, 490, 369]
 canvas2_points = [0, 0, 490, 369]
+inverse_Flag = False
+
 
 @app.route("/")
 def index():
@@ -37,11 +41,13 @@ def uploadImage():
         global file_path1
         filename, file_path1 = upload(file)
         img1 = Image('static\\' + file_path1, canvas1_points)
+        img1.read()
         img1.getFreq()
         img1.magSpectrum()
         img1.phaseSpectrum()  
         img1.save(img1.magnitude_spectrum, 'static/imgs/mag1.png')
         img1.save(img1.phase_spectrum, 'static/imgs/phase1.png')
+        # update()
         return jsonify(name=filename, path=file_path1)
 
 
@@ -52,11 +58,13 @@ def uploadImage2():
         global file_path2
         filename, file_path2 = upload(file)
         img2 = Image('static\\' + file_path2, canvas2_points)
+        img2.read()
         img2.getFreq()
         img2.magSpectrum()
         img2.phaseSpectrum()  
         img2.save(img2.magnitude_spectrum, 'static/imgs/mag2.png')
         img2.save(img2.phase_spectrum, 'static/imgs/phase2.png')
+        # update()
         return jsonify(name=filename, path=file_path2)
 
 
@@ -65,11 +73,16 @@ def display_image(filename):
     return redirect(url_for( 'static' ,filename='images/' + filename))
 
 
-@app.route('/outputUpdate',methods=['POST'])
+@app.route('/outputUpdate', methods = ['POST'])
 def update():
     if request.method=="POST":
+        print("===========================")
+        print(file_path1)
         img1 = Image('static\\' + file_path1, canvas1_points)
         img2 = Image('static\\'+ file_path2, canvas2_points)
+
+        img1.read()
+        img2.read()
 
         m = max(len(img1.img), len(img2.img))
         n = max(len(img1.img[0]), len(img2.img[0]))
@@ -77,11 +90,21 @@ def update():
         img1.fourierTransform(n, m)
         img2.fourierTransform(n, m)
 
+        # img1.magSpectrum()
+        # img1.phaseSpectrum()  
+        # img1.save(img1.magnitude_spectrum, 'static/imgs/mag1.png')
+        # img1.save(img1.phase_spectrum, 'static/imgs/phase1.png')
+
+        # img2.magSpectrum()
+        # img2.phaseSpectrum()  
+        # img2.save(img2.magnitude_spectrum, 'static/imgs/mag2.png')
+        # img2.save(img2.phase_spectrum, 'static/imgs/phase2.png')
+
         img1.resize()
         img2.resize()
 
-        newImg1 = ImageProcessing('static\\' + file_path1, canvas1_points, img2.newMag, img1.newPhase)
-        newImg2 = ImageProcessing('static\\'+ file_path2, canvas2_points, img1.newMag, img2.newPhase)
+        newImg1 = ImageProcessing('static/' + file_path1, canvas1_points, img2.newMag, img1.newPhase)
+        newImg2 = ImageProcessing('static/'+ file_path2, canvas2_points, img1.newMag, img2.newPhase)
 
         newImg1.mixImages()
         newImg2.mixImages()
@@ -105,7 +128,7 @@ def canvas1():
     global canvas1_points
     canvas1_points = [round(xStart1),round(yStart1),round(xEnd1),round(yEnd1)]
     print(canvas1_points)
-    # update()
+    update()
     return "TODO"
 
 
@@ -123,6 +146,22 @@ def canvas2():
     print(canvas2_points)
     return "TODO"
 
+# @app.route('/normal', methods=['GET', 'POST'])
+# def normal():
+#     if request.method == 'POST':
+#         global inverse_Flag
+#         inverse_Flag = False
+#         update()
+#     return 'TODO'
+
+
+# @app.route('/inverse', methods=['GET', 'POST'])
+# def inverse():
+#     if request.method == 'POST':
+#         global inverse_Flag 
+#         inverse_Flag = True
+#         update()
+#     return 'TODO'
 
 if __name__ == '__main__':
     app.run(debug=True)

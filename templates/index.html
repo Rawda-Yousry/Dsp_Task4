@@ -33,14 +33,13 @@
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img1" name="pic1" style="display: none;"> 
-                        <img src="static/images/img1.png" class="img1" name="default1">
+                        <!-- <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img1" name="pic1" style="display: none;">  -->
+                        <img src="static/images/img1.png" class="img1" name="default1" id="img1" name="pic1">
                     </div>
                 </div>
                 <div class="column5">
                     <div class="magphase_img">
-                        <img src="static/imgs/mag1.png?random" class="img" id="magPhoto_1" name="img1">
-                        <img src="static/imgs/phase1.png?random" class="img" style="display: none;" id="phasePhoto_1" name="img1">
+                        <img class="img" id="Photo_1" name="img1">
                     </div>
                 </div>
             </div>
@@ -62,16 +61,14 @@
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img2" name="pic2" style="display: none;"> 
-                        <img src="static/images/img2.png" class="img1" name="default2" >
+                        <!-- <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img2" name="pic2" style="display: none;">  -->
+                        <img src="static/images/img2.png" class="img1" name="default2" id="img2" name="pic2" >
                     </div>
                 </div>
                 <div class="column5">
                     <div class="magphase_img">
-                        <canvas id="myCanvas3" class="canvas" name="myCanvas2" style="display: none;"></canvas>
-                        <canvas id="myCanvas4" class="canvas" name="myCanvas2" style="display: none;"></canvas>
-                        <img src="static/imgs/mag2.png?random" class="img" style="display: none;" id="magPhoto_2" name="img2">
-                        <img src="static/imgs/phase2.png?random" class="img"  id="phasePhoto_2" name="img2" style="display: none;">
+                        <img class="img" id="Photo_2" name="img2">
+                        <!-- <img src="static/imgs/phase2.png?random" class="img"  id="phasePhoto_2" name="img2" style="display: none;"> -->
                     </div>
                 </div>
             </div>
@@ -82,6 +79,12 @@
                 <img src="static/imgs/imageOut1.png?random" name = 'output' id="out1" style="display: none;" class="img_out">
                 <img src="static/imgs/imageOut2.png?random" name = 'output' id="out2" style="display: none;"  class="img_out">
             </div>
+            <!-- <form action="/normal" method="post">
+                <input type="submit"  value="Normal" >
+            </form>
+            <form action="/inverse" method="post">
+                <input type="submit"  value="Inverse" >
+            </form> -->
         </div>
     </div>
     <script src="static/script.js"></script>

@@ -1,3 +1,5 @@
+// const cropper = require("./cropperjs/dist/cropper");
+
 var xStart1;
 var yStart1;
 var xEnd1;
@@ -13,164 +15,67 @@ var image;
 var cropper1;
 var cropper2;
 
+var photo1;
+var photo2;
 
-
-// var id = 1;
-
-function condition(id){
-  
-if (id == 1){
-
- photo1 = document.getElementById('magPhoto_1');
- photo2 = document.getElementById('phasePhoto_2');
-
-
- console.log("id 1111111")
-
-}
-else if (id == 2){
- photo1 = document.getElementById('phasePhoto_1');
- photo2 = document.getElementById('magPhoto_2');
- console.log("id 22222222")
-}
-}
-
-
-
-function crop1(){
-  cropper1 = new Cropper(photo1, {
-  autoCropArea: 1,
-  crop(event) {
-      xStart1 = event.detail.x;
-      yStart1 = event.detail.y;
-      xEnd1 = event.detail.x + event.detail.width;
-      yEnd1 = event.detail.y + event.detail.height;
-  },
-  });
-}
-
-function crop2(){
-
-  cropper2 = new Cropper(photo2, {
-  autoCropArea: 1,
-  crop(event) {
-      xStart2 = event.detail.x;
-      yStart2 = event.detail.y;
-      xEnd2 = event.detail.x + event.detail.width;
-      yEnd2 = event.detail.y + event.detail.height;
-  },
-  });
-}
-
-
-
-condition(1)
-window.addEventListener("click", crop1)
-window.addEventListener("click", crop2)
-window.addEventListener("click", sendVariables)
-window.addEventListener("click", sendVariables2)
-
-
-function sendVariables(e){
-console.log('aaaaa', xStart1)
-console.log('bbbbb', xEnd1)
-
-var canvas1_points = { 
-  x1  : xStart1,
-  y1 :  yStart1,
-  x2 : xEnd1,
-  y2: yEnd1 }
-   fetch(`${window.origin}/canvas1`, {
-     method: "POST",
-     credentials: "include",
-     body: JSON.stringify(canvas1_points),
-     cache: "no-cache",
-     headers: new Headers({
-       "content-type": "application/json"
-    })
-    })
-  }
-
-function sendVariables2(e){
-  console.log('aaaaa', xStart2)
-  console.log('bbbbb', xEnd2)
-  
-  var canvas2_points = { 
-    x1  : xStart2,
-    y1 :  yStart2,
-    x2 : xEnd2,
-    y2: yEnd2 }
-      fetch(`${window.origin}/canvas2`, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(canvas2_points),
-        cache: "no-cache",
-        headers: new Headers({
-          "content-type": "application/json"
-      })
-      })
-    }
-
+var id = 1;
 
   $(document).ready(function(){
-    const mag1 = document.getElementById("magPhoto_1")
-    const phase2 = document.getElementById("phasePhoto_2")
+    photo1 = document.getElementById("Photo_1")
+    photo2 = document.getElementById("Photo_2")
     const out2 = document.getElementById("out2")
-    mag1.src="/static/imgs/mag1.png"
-    phase2.src="/static/imgs/phase2.png"
+    photo1.src="/static/imgs/mag1.png"
+    photo2.src="/static/imgs/phase2.png"
     out2.src ="/static/imgs/imageOut2.png"
-    mag1.style.display="inline"
-    phase2.style.display="inline"
+    photo1.style.display="inline"
+    photo2.style.display="inline"
     out2.style.display="inline"
 
   })
   
 
 function change(radio){
-    const mag1 = document.getElementById("magPhoto_1")
-    const mag2 = document.getElementById("magPhoto_2")
-    const phase1 = document.getElementById("phasePhoto_1")
-    const phase2 = document.getElementById("phasePhoto_2")
+    photo1 = document.getElementById("Photo_1")
+    photo2 = document.getElementById("Photo_2")
+    // const phase1 = document.getElementById("phasePhoto_1")
+    // const phase2 = document.getElementById("phasePhoto_2")
     const out1 = document.getElementById("out1")
     const out2 = document.getElementById("out2")
     var d = new Date();
     const selectedValue = radio.value;
 
 
+
     if (selectedValue == "Magnitude" )
     {
-      
-      cropper1.disable()
-      cropper2.disable()
       condition(1)
+      // cropper1.url = photo1.src
+      cropper1.destroy()
+      cropper2.destroy()
 
-      // cropper1.replace('static/imgs/mag1.png')
-      // cropper2.replace('static/imgs/phase2.png')
-
-      mag1.src = "/static/imgs/mag1.png?"+d.getMilliseconds()
-      phase2.src = "/static/imgs/phase2.png?"+d.getMilliseconds()
-      mag1.style.display = "inline";
-      phase2.style.display = "inline"
-      mag2.style.display = "none"
-      phase1.style.display = "none"
+      photo1.src = "/static/imgs/mag1.png?"+d.getMilliseconds()
+      photo2.src = "/static/imgs/phase2.png?"+d.getMilliseconds()
+      cropper1.url=photo1.src
+      cropper2.url = photo2.src
+      // mag2.style.display = "none"
+      // phase1.style.display = "none"
       out2.style.display="inline"
       out1.style.display="none"
 
     }
     else if (selectedValue == "Phase" ) 
     {
+
+      condition(2)
+      // cropper2.url = photo2.src
       cropper1.destroy()
       cropper2.destroy()
-      // cropper1.replace('static/imgs/phase1.png')
-      // cropper2.replace('static/imgs/mag2.png')
-  
-      condition(2)
-      mag2.src = "/static/imgs/mag2.png?"+d.getMilliseconds()
-      phase1.src = "/static/imgs/phase1.png?"+d.getMilliseconds()
-      mag2.style.display = "inline";
-      phase1.style.display = "inline"
-      mag1.style.display = "none";
-      phase2.style.display = "none"
+      photo2.src = "/static/imgs/mag2.png?"+d.getMilliseconds()
+      photo1.src = "/static/imgs/phase1.png?"+d.getMilliseconds()
+      cropper1.url=photo1.src
+      cropper2.url = photo2.src
+      // mag1.style.display = "none";
+      // phase2.style.display = "none"
       out1.style.display="inline"
       out2.style.display="none"
     }
@@ -181,8 +86,8 @@ function change(radio){
 
 $(document).on('change','#upload-button',function(){
         var property = document.getElementById("upload-button").files[0];
-        var phasePhoto_1 =document.getElementById("phasePhoto_1")
-        var magPhoto_1 =document.getElementById("magPhoto_1")
+        var phasePhoto_1 =document.getElementById("Photo_2")
+        var magPhoto_1 =document.getElementById("Photo_1")
         var form_data = new FormData();
         form_data.append("file",property);
         $.ajax({
@@ -248,8 +153,8 @@ $(document).on('change','#upload-button',function(){
 
   $(document).on('change','#upload-button2',function(){
     var property = document.getElementById("upload-button2").files[0];
-    var phasePhoto_2 =document.getElementById("phasePhoto_2")
-    var magPhoto_2 =document.getElementById("magPhoto_2")
+    var phasePhoto_2 =document.getElementById("Photo_2")
+    var magPhoto_2 =document.getElementById("Photo_1")
     var form_data = new FormData();
     form_data.append("file",property);
     $.ajax({
@@ -307,6 +212,171 @@ $(document).on('change','#upload-button',function(){
     }
     })
   })
+
+
+
+  function condition(id){
+    photo1 = document.getElementById('Photo_1');
+    photo2 = document.getElementById('Photo_2');
+    var d = new Date()
+    if (id == 1){
+     photo1.src="static/imgs/mag1.png?"+d.getMilliseconds()
+     photo2.src="static/imgs/phase2.png?"+d.getMilliseconds()
+     console.log("aaaaaa",photo1.src)
+     console.log("id 1111111")
+    
+    }
+    else if (id == 2){
+      photo1.src="static/imgs/phase1.png?"+d.getMilliseconds()
+      photo2.src="static/imgs/mag2.png?"+d.getMilliseconds()
+      console.log("aaaaaa",photo1.src)
+
+
+     
+    //  photo2 = document.getElementById('magPhoto_2');
+     console.log("id 22222222")
+    }
+    }
+
+  function crop1(){
+    photo1 = document.getElementById('Photo_1');
+    // console.log("cropper",photo1.src)
+    cropper1 = new Cropper(photo1 , {
+    url: photo1.src,
+    autoCropArea: 1,
+    zoomable: false,
+    movable: false,
+    crop(event) {
+        xStart1 = event.detail.x;
+        yStart1 = event.detail.y;
+        xEnd1 = event.detail.x + event.detail.width;
+        yEnd1 = event.detail.y + event.detail.height;
+    },
+    });
+    console.log("cropperrrrr",photo1.src)
+    console.log("url",cropper1.url)
+
+  }
+  
+  function crop2(){
+    photo2 = document.getElementById('Photo_2');
+
+    cropper2 = new Cropper(photo2, {
+    autoCropArea: 1,
+    zoomable: false,
+    movable: false,
+    crop(event) {
+        xStart2 = event.detail.x;
+        yStart2 = event.detail.y;
+        xEnd2 = event.detail.x + event.detail.width;
+        yEnd2 = event.detail.y + event.detail.height;
+    },
+    });
+  }
+  
+  
+  
+  condition(1)
+  window.addEventListener("dblclick", crop1)
+  window.addEventListener("dblclick", crop2)
+  window.addEventListener("click", sendVariables)
+  window.addEventListener("click", sendVariables2)
+  
+  
+  function sendVariables(e){
+  console.log('aaaaa', xStart1)
+  console.log('bbbbb', xEnd1)
+  
+  var canvas1_points = { 
+    x1  : xStart1,
+    y1 :  yStart1,
+    x2 : xEnd1,
+    y2: yEnd1 }
+
+     fetch(`${window.origin}/canvas1`, {
+       method: "POST",
+       credentials: "include",
+       body: JSON.stringify(canvas1_points),
+       cache: "no-cache",
+       headers: new Headers({
+         "content-type": "application/json"
+      })
+      })
+      console.log("enddd")
+      var ajax2= $.ajax({
+        url:"/outputUpdate",
+        type: "POST",
+        contentType:false,
+        cache:false,
+        processData:false,
+        dataType: 'json',
+        success:function(data){
+          var d = new Date();
+          console.log(100)
+            if(document.getElementById('radio1').checked ){
+              // $('#out1').attr('src','/static/imgs/imageOut1.png?'+d.getMilliseconds())
+              // $('#out1').show()
+              out2.src="/static/imgs/imageOut2.png?"+d.getMilliseconds()
+              out2.style.display="inline"
+              out1.src="/static/imgs/imageOut1.png?"+d.getMilliseconds()
+            }
+            else if(document.getElementById('radio2').checked){
+              out1.src="/static/imgs/imageOut1.png?"+d.getMilliseconds()
+              out1.style.display="inline"
+              out2.src="/static/imgs/imageOut2.png?"+d.getMilliseconds()
+    
+            }
+    
+    
+      }});
+
+    }
+  
+  function sendVariables2(e){
+    console.log('aaaaa', xStart2)
+    console.log('bbbbb', xEnd2)
+    
+    var canvas2_points = { 
+      x1  : xStart2,
+      y1 :  yStart2,
+      x2 : xEnd2,
+      y2: yEnd2 }
+        fetch(`${window.origin}/canvas2`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(canvas2_points),
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+        })
+        })
+        var ajax2= $.ajax({
+          url:"/outputUpdate",
+          type: "POST",
+          contentType:false,
+          cache:false,
+          processData:false,
+          dataType: 'json',
+          success:function(data){
+            var d = new Date();
+            console.log(100)
+              if(document.getElementById('radio1').checked ){
+                // $('#out1').attr('src','/static/imgs/imageOut1.png?'+d.getMilliseconds())
+                // $('#out1').show()
+                out2.src="/static/imgs/imageOut2.png?"+d.getMilliseconds()
+                out2.style.display="inline"
+                out1.src="/static/imgs/imageOut1.png?"+d.getMilliseconds()
+              }
+              else if(document.getElementById('radio2').checked){
+                out1.src="/static/imgs/imageOut1.png?"+d.getMilliseconds()
+                out1.style.display="inline"
+                out2.src="/static/imgs/imageOut2.png?"+d.getMilliseconds()
+      
+              }
+      
+      
+        }});
+      }
 
 
 function load(){

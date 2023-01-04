@@ -27,12 +27,13 @@ var phaseCheck = document.getElementById("radio2")
 
 // To Specify Which Photos To Update When Image 1 Uploaded
 function displayImgUpdate_1(){
+  const random = new Date()
   if(magnitudeCheck.checked){
-    photo1.src='static/imgs/mag1.png?'+dummy.getMilliseconds()
+    photo1.src='static/imgs/mag1.png?'+random.getMilliseconds()
     outputDisplay();
   }
   else if(phaseCheck.checked){
-    photo1.src='static/imgs/phase1.png?'+dummy.getMilliseconds()
+    photo1.src='static/imgs/phase1.png?'+random.getMilliseconds()
     outputDisplay();
   }
 }
@@ -40,12 +41,13 @@ function displayImgUpdate_1(){
 
 // To Specify Which Photos To Update When Image 2 Uploaded
 function displayImgUpdate_2(){
+  const random = new Date()
   if(magnitudeCheck.checked){
-    photo2.src='static/imgs/phase2.png?'+dummy.getMilliseconds()
+    photo2.src='static/imgs/phase2.png?'+random.getMilliseconds()
     outputDisplay();
   }
   else if(phaseCheck.checked){
-    photo2.src='static/imgs/mag2.png?'+dummy.getMilliseconds()
+    photo2.src='static/imgs/mag2.png?'+random.getMilliseconds()
     outputDisplay();
   }
 
@@ -100,12 +102,20 @@ function change(radio){
     out.style.display="inline"
   } else if (selectedValue == "Phase" ){
       cropperCondition(2)
-      cropper1.destroy()
-      cropper2.destroy()
+      if (cropper1){
+        cropper1.destroy()
+      }
+      if (cropper2){
+        cropper2.destroy()
+      }
       photo2.src = "/static/imgs/mag2.png?"+dummy.getMilliseconds()
       photo1.src = "/static/imgs/phase1.png?"+dummy.getMilliseconds()
-      cropper1.url=photo1.src
-      cropper2.url = photo2.src
+      if (cropper1){
+        cropper1.url=photo1.src
+      }
+      if (cropper2){
+        cropper2.url = photo2.src
+      }
       out.style.display="inline"
     }
 }
@@ -115,8 +125,12 @@ function uploadImage(imageSelector){
   var upload = new FormData($(`#upload_form${imageSelector}`)[0])
   points1=[0,0,1,1]
   points2=[0,0,1,1]
-  cropper1.destroy()
-  cropper2.destroy()
+  if (cropper1){
+    cropper1.destroy()
+  }
+  if (cropper2){
+    cropper2.destroy()
+  }
   $.ajax({
       url:`/upload/${imageSelector}`,
       data:upload,

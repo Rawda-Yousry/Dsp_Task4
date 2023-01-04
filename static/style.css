@@ -1,8 +1,8 @@
 body{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* color: tomato; */
-    /* background-color: cadetblue; */
-    /* overflow: hidden; */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    background-color:rgba(239, 239, 239, 0.842);
 }
 
 label{
@@ -12,13 +12,13 @@ label{
 .container{
     display: flex;
     text-align: center;
-    /* border-style: solid;
-    border-color: aliceblue; */
+    padding-left: 3rem;
 }
 
 .column1{
     flex: 70%;
     text-align: center;
+    padding-top: 3rem;
 }
 
 .column2{
@@ -54,55 +54,85 @@ label{
 }
 
 .upload{
-    text-align: center;
-    padding-top: 6rem;
+    text-align: left;
+    padding-top: 2rem;
+}
+
+p {
+    font-weight: 545;
 }
 
 .radio{
     text-align: left;
-    padding-left: 2rem;
+    padding-top: 3rem;
 }
 
-.input_img{
-    width: 490px;
-    height: 369px;
+.btn-container{
+    text-align: left;
+    padding-top: 3rem;
 }
 
-/* .img_out{
-    width: 490px;
-    height: 369px;
-} */
+.button {
+    top:50%;
+    background: #084cdf;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding: 10px 20px;
+    min-height:20px; 
+    min-width: 120px;
+    cursor: pointer;
+    font-size: medium;
+}
+
+.button:hover{
+    background: #0d45a5;
+}
+
+.btn2{
+    padding-top: 1rem;
+}
 
 .magphase_img{
-    /* padding-top: 1rem; */
     width: 490px;
     height: 369px;
 }
 
-img {
+.magphase_img img{
+    width: 100%;
+    height: auto;
     display: block;
-    /* This rule is very important, please don't ignore this */
-    max-width: 100%;
+    overflow: hidden;
+}
+.input_img img{
+    width: 93.5%;
+    height: auto;
+    display: block;
+    overflow: hidden;
 }
 
-.img1{
-    display: block;
-    max-width: 100%;
-}
-
-
-/* input[type="file"]{
-    display: none;
-} */
-
-.canvas{
+.img_out{
     width: 60%;
-    height: 80%;
-    padding-top: 1rem;
+    height: auto;
 }
 
 .head{
     padding-top: 6rem;
     font-weight: bold;
-    font-size: large;
+    font-size: 20px;
 }
+
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }

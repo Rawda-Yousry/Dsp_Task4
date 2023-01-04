@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/cropperjs/dist/cropper.min.css">
+    <!-- <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">  -->
 </head>
 <body>
     <div class="container">
@@ -17,9 +18,16 @@
             <div class="row1">
                 <div class="column3">
                     <div class="upload"> 
-                    <form method = "post" id="upload_form1" enctype="multipart/form-data">
-                        <input type="file" name="file" onchange=" uploadImage(1); " />
-                    </form>
+                        <p class="title">Upload the first image</p>
+                        <form method = "post" id="upload_form1" enctype="multipart/form-data">
+                            <input type="file" name="file" onchange=" uploadImage(1); " />
+                        </form>
+                    </div>
+                    <div class="upload">
+                        <p class="title">Upload the second image</p>
+                        <form method = "post" id="upload_form2" enctype="multipart/form-data">
+                            <input type="file" name="file" onchange=" uploadImage(2); " />
+                        </form>
                     </div>
                     <div class="radio">
                         <br><input id="radio1" name="choise1" type="radio" value="Magnitude" checked onclick="change(this);" />
@@ -30,31 +38,34 @@
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <img src="static/images/img1.png" class="img1" name="default1" id="img1" name="pic1">
+                        <img src="static/images/img1.png" name="default1" id="img1" name="pic1">
                     </div>
                 </div>
                 <div class="column5">
                     <div class="magphase_img">
-                        <img class="img" id="Photo_1" name="img1">
+                        <img  id="Photo_1" name="img1">
                     </div>
                 </div>
             </div>
             <div class="row2">
                 <div class="column3">
-                    <div class="upload">
-                        <form method = "post" id="upload_form2" enctype="multipart/form-data">
-                            <input type="file" name="file" onchange=" uploadImage(2); " />
-                        </form>
+                    <div class="btn-container">
+                        <div class="btn1">
+                            <button class="button" onclick="cutCrop(0)">Normal</button>
+                        </div>
+                        <div class="btn2">
+                            <button class="button" onclick="cutCrop(1)">Inverse</button>
+                        </div>
                     </div>
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <img src="static/images/img2.png" class="img1" name="default2" id="img2" name="pic2" >
+                        <img src="static/images/img2.png" name="default2" id="img2" name="pic2" >
                     </div>
                 </div>
                 <div class="column5">
                     <div class="magphase_img">
-                        <img class="img" id="Photo_2" name="img2">
+                        <img id="Photo_2" name="img2">
                     </div>
                 </div>
             </div>
@@ -62,15 +73,7 @@
         <div class="column2">
             <p class="head">Output Image</p>
             <div class="output_img">
-                <img src="static/imgs/imageOut2.png?random" name = 'output' id="out" style="display: none;"  class="img_out">
-            </div>
-            <div>
-                <!-- <form method = "post" enctype="multipart/form-data" id="cutCrop1" > -->
-                    <button onclick="cutCrop(0)">Normal</button>
-                <!-- </form> -->
-                <!-- <form method = "post"  enctype="multipart/form-data" id="cutCrop2" > -->
-                    <button onclick="cutCrop(1)">Inverse</button>
-                <!-- </form> -->
+                <img name = 'output' id="out" style="display: none;"  class="img_out">
             </div>
         </div>
     </div>

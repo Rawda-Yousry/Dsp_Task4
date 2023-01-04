@@ -46,7 +46,7 @@ def uploadImage(image_id):
             img1.magSpectrum()
             img1.phaseSpectrum()  
             img1.save(img1.magnitude_spectrum, 'static/imgs/mag1.png')
-            img1.save(img1.phase_spectrum, 'static/imgs/phase1.png')
+            img1.save(255*(img1.phase_spectrum), 'static/imgs/phase1.png')
         else:
             global file_path2
             filename, file_path2 = upload(file)
@@ -56,7 +56,7 @@ def uploadImage(image_id):
             img2.magSpectrum()
             img2.phaseSpectrum()  
             img2.save(img2.magnitude_spectrum, 'static/imgs/mag2.png')
-            img2.save(img2.phase_spectrum, 'static/imgs/phase2.png')
+            img2.save(255*(img2.phase_spectrum), 'static/imgs/phase2.png')
     return jsonify(name=filename)
 
 

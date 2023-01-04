@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/cropperjs/dist/cropper.min.css">
-    <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
 </head>
 <body>
     <div class="container">
@@ -18,11 +17,9 @@
             <div class="row1">
                 <div class="column3">
                     <div class="upload"> 
-                        <input type="file"  id = "upload-button" accept="image/*" name="img1" onchange=" load(); " />
-                        <label for = "upload-button">
-                            <i class="fa fa-upload"> &nbsp;</i>
-                            Choose a photo
-                        </label>
+                    <form method = "post" id="upload_form1" enctype="multipart/form-data">
+                        <input type="file" name="file" onchange=" uploadImage(1); " />
+                    </form>
                     </div>
                     <div class="radio">
                         <br><input id="radio1" name="choise1" type="radio" value="Magnitude" checked onclick="change(this);" />
@@ -33,7 +30,6 @@
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <!-- <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img1" name="pic1" style="display: none;">  -->
                         <img src="static/images/img1.png" class="img1" name="default1" id="img1" name="pic1">
                     </div>
                 </div>
@@ -46,29 +42,19 @@
             <div class="row2">
                 <div class="column3">
                     <div class="upload">
-                        <input type="file" id = "upload-button2" accept="image/*" onchange="load2(); " />
-                        <label for = "upload-button2">
-                            <i class="fa fa-upload"> &nbsp;</i>
-                            Choose a photo
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <!-- <br><input id="radio3" name="choise2" type="radio" value="Magnitude" onchange="inputImg()"/>
-                        <label for="radio3">Magnitude</label></br>
-                        <br><input id="radio4" name="choise2" type="radio" checked onchange="inputImg()" />
-                        <label for="radio4">Phase</label></br> -->
+                        <form method = "post" id="upload_form2" enctype="multipart/form-data">
+                            <input type="file" name="file" onchange=" uploadImage(2); " />
+                        </form>
                     </div>
                 </div>
                 <div class="column4">
                     <div class="input_img">
-                        <!-- <img src="{{ url_for('display_image', filename=filename) }}" class="img1" id="img2" name="pic2" style="display: none;">  -->
                         <img src="static/images/img2.png" class="img1" name="default2" id="img2" name="pic2" >
                     </div>
                 </div>
                 <div class="column5">
                     <div class="magphase_img">
                         <img class="img" id="Photo_2" name="img2">
-                        <!-- <img src="static/imgs/phase2.png?random" class="img"  id="phasePhoto_2" name="img2" style="display: none;"> -->
                     </div>
                 </div>
             </div>
@@ -76,20 +62,19 @@
         <div class="column2">
             <p class="head">Output Image</p>
             <div class="output_img">
-                <img src="static/imgs/imageOut1.png?random" name = 'output' id="out1" style="display: none;" class="img_out">
-                <img src="static/imgs/imageOut2.png?random" name = 'output' id="out2" style="display: none;"  class="img_out">
+                <img src="static/imgs/imageOut2.png?random" name = 'output' id="out" style="display: none;"  class="img_out">
             </div>
-            <!-- <form action="/normal" method="post">
-                <input type="submit"  value="Normal" >
-            </form>
-            <form action="/inverse" method="post">
-                <input type="submit"  value="Inverse" >
-            </form> -->
+            <div>
+                <!-- <form method = "post" enctype="multipart/form-data" id="cutCrop1" > -->
+                    <button onclick="cutCrop(0)">Normal</button>
+                <!-- </form> -->
+                <!-- <form method = "post"  enctype="multipart/form-data" id="cutCrop2" > -->
+                    <button onclick="cutCrop(1)">Inverse</button>
+                <!-- </form> -->
+            </div>
         </div>
     </div>
     <script src="static/script.js"></script>
     <script src="../static/cropperjs/dist/cropper.min.js"></script>
-    <!-- <script src="static/canvas2.js"></script>
-    <script src="static/canvas1.js"></script> -->
 </body>
 </html>

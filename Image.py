@@ -31,18 +31,18 @@ class Image:
         self.mag = np.abs(self.fshift)
         self.phase = np.angle(self.fshift)
 
-    def crop(self, array):
+    def crop(self, array,flag):
         arrayShape = np.shape(array)
         values = np.zeros(arrayShape, dtype = 'uint8')
         values = cv2.rectangle(values,(self.xStart, self.yStart), (self.xEnd, self.yEnd), (1,1,1), -1)
         returned_array = np.multiply(array, values)
-        # if flag == True:
-        #     returned_array = array - returned_array
+        if flag == True:
+            returned_array = array - returned_array
         return returned_array
 
-    def resize(self):
-        self.newMag = self.crop(self.mag)
-        self.newPhase = self.crop(self.phase)
+    def resize(self,flag):
+        self.newMag = self.crop(self.mag,flag)
+        self.newPhase = self.crop(self.phase,flag)
 
     def save(self, data, save_path):
         plt.figure()

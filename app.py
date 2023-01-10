@@ -64,12 +64,8 @@ def uploadImage(image_id):
 @app.route('/outputUpdate', methods = ["POST"])
 def update():
     if request.method == "POST":
-        print(file_path1)
         img1 = Image('static\\' + file_path1, canvas1_points)
         img2 = Image('static\\'+ file_path2, canvas2_points)
-
-        img1.read()
-        img2.read()
 
         m = max(len(img1.img), len(img2.img))
         n = max(len(img1.img[0]), len(img2.img[0]))
@@ -77,8 +73,8 @@ def update():
         img1.fourierTransform(n, m)
         img2.fourierTransform(n, m)
 
-        img1.resize(inverse_Flag)
-        img2.resize(inverse_Flag)
+        img1.crop(inverse_Flag)
+        img2.crop(inverse_Flag)
 
         newImg1 = ImageProcessing('static/' + file_path1, canvas1_points, img2.newMag, img1.newPhase)
         newImg2 = ImageProcessing('static/'+ file_path2, canvas2_points, img1.newMag, img2.newPhase)
@@ -101,7 +97,6 @@ def canvas1():
     yEnd1 = data["y2"]
     global canvas1_points
     canvas1_points = [round(xStart1),round(yStart1),round(xEnd1),round(yEnd1)]
-    print(canvas1_points)
     update()
     return "  "
 
@@ -113,10 +108,8 @@ def canvas2():
     yStart2= data2["y1"]
     xEnd2 = data2["x2"]
     yEnd2 = data2["y2"]
-    print('canvas22222222')
     global canvas2_points
     canvas2_points = [round(xStart2),round(yStart2),round(xEnd2),round(yEnd2)]
-    print(canvas2_points)
     return "  "
 
 @app.route('/normal', methods=['POST'])
@@ -124,7 +117,6 @@ def normal():
     global inverse_Flag
     id = request.get_json()
     inverse_Flag = id["x1"]
-    print(inverse_Flag)
     update()
     return"  "
 

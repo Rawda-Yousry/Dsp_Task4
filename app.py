@@ -30,6 +30,17 @@ def upload(file):
     file_path = '/'.join(['images', filename])
     return filename, file_path
 
+def magPhaseshow(file_path, points, mag_save_path, phase_save_path):
+    img = Image('static\\' + file_path, points)
+    img.read()
+    img.getFreq()
+    img.magSpectrum()
+    img.phaseSpectrum()  
+    img.save(img.magnitude_spectrum, mag_save_path)
+    img.save(255*(img.phase_spectrum), phase_save_path)
+    print('magspec', img.magnitude_spectrum.shape)
+    print('phasespec', img.phase_spectrum.shape)
+
 
 @app.route("/upload/<int:image_id>",methods=["POST"])
 def uploadImage(image_id):
@@ -40,23 +51,11 @@ def uploadImage(image_id):
         if image_id == 1:
             global file_path1
             filename, file_path1 = upload(file)
-            img1 = Image('static\\' + file_path1, canvas1_points)
-            img1.read()
-            img1.getFreq()
-            img1.magSpectrum()
-            img1.phaseSpectrum()  
-            img1.save(img1.magnitude_spectrum, 'static/imgs/mag1.png')
-            img1.save(255*(img1.phase_spectrum), 'static/imgs/phase1.png')
+            magPhaseshow(file_path1, canvas1_points, 'static/imgs/mag1.png', 'static/imgs/phase1.png')
         else:
             global file_path2
             filename, file_path2 = upload(file)
-            img2 = Image('static\\' + file_path2, canvas2_points)
-            img2.read()
-            img2.getFreq()
-            img2.magSpectrum()
-            img2.phaseSpectrum()  
-            img2.save(img2.magnitude_spectrum, 'static/imgs/mag2.png')
-            img2.save(255*(img2.phase_spectrum), 'static/imgs/phase2.png')
+            magPhaseshow(file_path2, canvas2_points, 'static/imgs/mag2.png', 'static/imgs/phase2.png')
     return jsonify(name=filename)
 
 
@@ -64,8 +63,12 @@ def uploadImage(image_id):
 @app.route('/outputUpdate', methods = ["POST"])
 def update():
     if request.method == "POST":
+        print(file_path1)
         img1 = Image('static\\' + file_path1, canvas1_points)
         img2 = Image('static\\'+ file_path2, canvas2_points)
+
+        img1.read()
+        img2.read()
 
         m = max(len(img1.img), len(img2.img))
         n = max(len(img1.img[0]), len(img2.img[0]))
@@ -73,8 +76,8 @@ def update():
         img1.fourierTransform(n, m)
         img2.fourierTransform(n, m)
 
-        img1.crop(inverse_Flag)
-        img2.crop(inverse_Flag)
+        img1.resize(inverse_Flag)
+        img2.resize(inverse_Flag)
 
         newImg1 = ImageProcessing('static/' + file_path1, canvas1_points, img2.newMag, img1.newPhase)
         newImg2 = ImageProcessing('static/'+ file_path2, canvas2_points, img1.newMag, img2.newPhase)
@@ -84,7 +87,11 @@ def update():
 
         newImg1.save(newImg1.imgCombined, 'static\imgs\imageOut1.png')
         newImg2.save(newImg2.imgCombined, 'static\imgs\imageOut2.png')
-
+        
+        print('mag', img1.mag)
+        print('phase', img1.phase)
+        print('new mag', img1.newMag)
+        print('new phase', img1.newPhase)
         return" "
 
 

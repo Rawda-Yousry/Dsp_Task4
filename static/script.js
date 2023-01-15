@@ -2,10 +2,10 @@
 var dummy = new Date() 
 
 // Starting And Ending Point For Cropped Image 1
-points1 = [0, 0, 1, 1]
+points1 = [0,0,1,1]
 
 // Starting And Ending Point For Cropped Image 1
-points2=[0, 0, 1, 1]
+points2=[0,0,1,1]
 
 // Objects Will Be Created To Start Using Cropper
 var cropper1;
@@ -123,8 +123,8 @@ function change(radio){
 // For Uploading New Images 
 function uploadImage(imageSelector){
   var upload = new FormData($(`#upload_form${imageSelector}`)[0])
-  points1 = [0, 0, 1, 1]
-  points2 = [0, 0, 1, 1]
+  points1=[0,0,1,1]
+  points2=[0,0,1,1]
   if (cropper1){
     cropper1.destroy()
   }
@@ -252,7 +252,13 @@ function sendVariables2(e){
 
 
 // To Toggle Between Normal And Inverse Cut 
-function cutCrop(id){
+function cutCrop(){
+  check = document.getElementById('check');
+  if (check.checked == true){
+    id = 1
+  } else{
+    id = 2
+  }
   var idData = {
     x1:id
   }
@@ -282,11 +288,9 @@ function Delete(e){
 function Delete_cropper_number(e){
   if(e.key === "1"){
     cropper1.destroy()
-    points1 = [0, 0, 1, 1]
   }
   else if (e.key === "2"){
     cropper2.destroy()
-    points2 = [0, 0, 1, 1]
   }
 }
 

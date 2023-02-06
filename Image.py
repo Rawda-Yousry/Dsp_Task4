@@ -35,7 +35,7 @@ class Image:
     def crop(self, array, flag):
         arrayShape = np.shape(array)
         values = np.zeros(arrayShape, dtype = 'uint8')
-        values = cv2.rectangle(values,(self.xStart, self.yStart), (self.xEnd, self.yEnd), (1,1,1), -1)
+        values = cv2.rectangle(values,(self.xStart, self.yStart), (self.yEnd, self.xEnd), (1,1,1), -1)
         returned_array = np.multiply(array, values)
         if flag == True:
             returned_array = array - returned_array

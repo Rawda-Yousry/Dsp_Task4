@@ -85,8 +85,8 @@ def update():
         newImg1.mixImages()
         newImg2.mixImages()
 
-        newImg1.save(newImg1.imgCombined, 'static\imgs\imageOut1.png')
-        newImg2.save(newImg2.imgCombined, 'static\imgs\imageOut2.png')
+        newImg1.save(newImg1.imgCombined[:-100], 'static\imgs\imageOut1.png')
+        newImg2.save(newImg2.imgCombined[:-100], 'static\imgs\imageOut2.png')
         
         print('mag', img1.mag)
         print('phase', img1.phase)
